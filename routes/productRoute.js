@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const {
   createProductController,
   productsController,
@@ -7,22 +7,22 @@ const {
   photoController,
   deleteProductController,
   productFilterController,
-  productCountcontroller,
   productListController,
-  searchProductcontroller,
   relatedProductController,
   categoryProductController,
   braintreeTokenController,
   braintreePaymentController,
-} = require("../controllers/productController");
-const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
-const ExpressFormidable = require("express-formidable");
+  productCountController,
+  searchProductController,
+} = require('../controllers/productController');
+const { requireSignIn, isAdmin } = require('../middlewares/authMiddleware');
+const ExpressFormidable = require('express-formidable');
 
 const router = express.Router();
 
 //create product
 router.post(
-  "/create-product",
+  '/create-product',
   requireSignIn,
   isAdmin,
   ExpressFormidable(),
@@ -30,20 +30,20 @@ router.post(
 );
 
 // get products
-router.get("/products", productsController);
+router.get('/products', productsController);
 
 // get single product
-router.get("/single-product/:slug", singleProductController);
+router.get('/single-product/:slug', singleProductController);
 
 // get photo
-router.get("/product-photo/:id", photoController);
+router.get('/product-photo/:id', photoController);
 
 //delete product
-router.delete("/delete-product/:id", deleteProductController);
+router.delete('/delete-product/:id', deleteProductController);
 
 // update single product
 router.put(
-  "/update-product/:id",
+  '/update-product/:id',
   requireSignIn,
   isAdmin,
   ExpressFormidable(),
@@ -51,28 +51,28 @@ router.put(
 );
 
 // filter product
-router.post("/product-filter", productFilterController);
+router.post('/product-filter', productFilterController);
 
 // product count
-router.get("/product-count", productCountcontroller);
+router.get('/product-count', productCountController);
 
 // product per page
-router.get("/product-list/:page", productListController);
+router.get('/product-list/:page', productListController);
 
 // search product
-router.get("/search/:keyword", searchProductcontroller);
+router.get('/search/:keyword', searchProductController);
 
 // related product
-router.get("/related-product/:pid/:cid", relatedProductController);
+router.get('/related-product/:pid/:cid', relatedProductController);
 
 // category wise product
-router.get("/category-product/:slug", categoryProductController);
+router.get('/category-product/:slug', categoryProductController);
 
 //============ payments route =================
 // braintree token
-router.get("/braintree/token", braintreeTokenController);
+router.get('/braintree/token', braintreeTokenController);
 
 // payments
-router.post("/braintree/payment", requireSignIn, braintreePaymentController);
+router.post('/braintree/payment', requireSignIn, braintreePaymentController);
 
 module.exports = router;
